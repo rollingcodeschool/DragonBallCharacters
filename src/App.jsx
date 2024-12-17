@@ -19,22 +19,27 @@ function App() {
      DELETE borrar un dato
     */
     //  usando JS FetchAPI
-    const respuesta = await fetch("https://dragonball-api.com/api/characters/2");
+    const respuesta = await fetch(`https://dragonball-api.com/api/characters/${getRandomIntInclusive()}`);
     console.log(respuesta);
     if(respuesta.status === 200){
       //extraer los datos del body
       const datos = await respuesta.json()
       console.log(datos);
+      setPersonaje(datos);
     }else{
       alert('Se produjo un error, intenta en unos minutos')
     }
     
   };
 
+  const getRandomIntInclusive = () =>{
+    return Math.floor(Math.random() * (40 - 1 + 1) + 1);
+  }
+
   return (
     <>
       <Container className="text-center my-4 d-flex flex-column align-items-center">
-        <Frase></Frase>
+        <Frase personaje={personaje}></Frase>
         <Button variant="primary" className="mt-3">
           Obtener personaje
         </Button>

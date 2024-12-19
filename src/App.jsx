@@ -13,25 +13,30 @@ function App() {
   }, []);
 
   const consultarAPI = async () => {
-    setMostrarSpinner(true)
-    /* solicitud a una API
-     GET devuelve datos
-     POST crean un dato
-     PUT o PATCH modificar datos de un objeto
-     DELETE borrar un dato
-    */
-    //  usando JS FetchAPI
-    const respuesta = await fetch(
-      `https://dragonball-api.com/api/characters/${getRandomIntInclusive()}`
-    );
-    console.log(respuesta);
-    if (respuesta.status === 200) {
-      //extraer los datos del body
-      const datos = await respuesta.json();
-      console.log(datos);
-      setPersonaje(datos);
-      setMostrarSpinner(false)
-    } else {
+    try {
+      setMostrarSpinner(true)
+      /* solicitud a una API
+       GET devuelve datos
+       POST crean un dato
+       PUT o PATCH modificar datos de un objeto
+       DELETE borrar un dato
+      */
+      //  usando JS FetchAPI
+      const respuesta = await fetch(
+        `https://dragonball-api.com/api/characters/${getRandomIntInclusive()}`
+      );
+      console.log(respuesta);
+      if (respuesta.status === 200) {
+        //extraer los datos del body
+        const datos = await respuesta.json();
+        console.log(datos);
+        setPersonaje(datos);
+        setMostrarSpinner(false)
+      } else {
+        alert("Se produjo un error, intenta en unos minutos");
+      }
+    } catch (error) {
+      console.error(error)
       alert("Se produjo un error, intenta en unos minutos");
     }
   };
